@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="API Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="JSONPlaceholder Tests">
+        <classes>
+            <class name="api.PostsTest"/>
+            <class name="api.UsersTest"/>
+            <class name="api.CommentsTest"/>
+        </classes>
+    </test>
+</suite>

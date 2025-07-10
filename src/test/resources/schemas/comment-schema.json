@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "postId": {"type": "integer"},
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "email": {"type": "string", "format": "email"},
+        "body": {"type": "string"}
+      },
+      "required": ["postId", "id", "name", "email", "body"]
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/anyOf/0"
+      }
+    }
+  ]
+}

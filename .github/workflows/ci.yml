@@ -15,24 +15,22 @@ jobs:
       - name: Build Docker image
         run: docker build -t api-tests .
 
-      - name: Run tests inside container
-        run: docker run --name api-tests-container api-tests
-
-      - name: Copy Allure Report from container
-        run: docker cp api-tests-container:/app/allure-report ./allure-report
+      - name: Run Tests in Docker
+        run: |
+          docker run --name api-tests-container --rm -v ${{ github.workspace }}/reports:/app/allure-report api-tests
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: allure-report
-          path: allure-report/
+          path: reports/
 
       - name: Deploy Allure Report to GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
+          publish_dir: reports
           publish_branch: gh-pages
           force_orphan: true
